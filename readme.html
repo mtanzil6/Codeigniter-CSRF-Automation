@@ -1,0 +1,123 @@
+<html>
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="description" content="This is simply an demonstration of HTML (which stands for HyperText Markup Language) document markup.">
+    <meta name="author" content="SitePoint">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+	    .container{
+		    width: 70%;
+		    margin: auto;
+		    padding: 3em 0px;
+	    }
+	    ol {
+		    list-style-type: none;
+		    list-style-type: decimal !ie; /*IE 7- hack*/
+		     
+		    margin: 0;
+		    margin-left: 3em;
+		    padding: 0;
+		     
+		    counter-reset: li-counter;
+		}
+		ol > li{
+		    position: relative;
+		    margin-bottom: 20px;
+		    padding-left: 0.5em;
+		    min-height: 3em;
+		    border-left: 2px solid #CCCCCC;
+		}
+		ol > li:before {
+		    position: absolute;
+		    top: 0;
+		    left: -1em;
+		    width: 0.8em;
+		     
+		    font-size: 3em;
+		    line-height: 1;
+		    font-weight: bold;
+		    text-align: right;
+		    color: #464646;
+		 
+		    content: counter(li-counter);
+		    counter-increment: li-counter;
+		}
+		pre {
+			width: 100%;
+			padding: 0;
+			margin: 0;
+			overflow: auto;
+			overflow-y: hidden;
+			font-size: 12px;
+			line-height: 20px;
+			background: #efefef;
+			border: 1px solid #777;
+			background: url(lines.png) repeat 0 0;
+		}
+		pre code {
+			padding: 10px;
+			color: #333;
+		}
+    </style>
+  </head>
+  <body>
+	  <div class="container">
+		  <h1>CSRF Token implementation</h1>
+		  <ol>
+			<li><b>csrf.php</b> - upload this file to <b>application/hooks</b> directory</li>
+			<li><b>hooks.php</b> - upload this file to <b>application/config</b> directory or replace it instead</li>
+			<li><b>tokenIntercepter.js</b> - upload this file to <b>style/site/js</b> directory</li>
+			<li>
+				Add the <b>tokenIntercepter.js</b> path to <b style="color: #3498db">footers</b> in <b>ACP/Views/acp_includes/footer.php, SITE/Views/includes/footer.php</b> etc after <b>bootstrap.min.js</b>
+				<br />
+				<p>Note* Add the <b style="color: #3498db">2nd script in acp/views/login.php</b> the first script is already included</p>
+				<br />
+				<pre>
+					<code>
+						&lt;script src=&quot;&lt;?=base_url(&quot;style/acp/js/jquery-cookie.js&quot;)?&gt;&quot;&gt;&lt;/script&gt;
+						&lt;script src=&quot;&lt;?=base_url(&quot;style/site/js/tokenIntercepter.js?v=1&quot;)?&gt;&quot;&gt;&lt;/script&gt;
+					</code>
+				</pre>
+			</li>
+			<li>
+				Change config.php in application/config/config.php <br />
+				<pre>
+					
+					$config['enable_hooks'] = FALSE;
+				</pre>
+				<h3>To</h3>
+				<pre>
+					
+					$config['enable_hooks'] = TRUE;
+					
+				</pre>
+				<h3>ALSO Replace</h3>
+				<pre>
+					
+					$config['csrf_protection'] = FALSE;
+					$config['csrf_token_name'] = 'csrf_test_name';
+					$config['csrf_cookie_name'] = 'csrf_cookie_name';
+					$config['csrf_expire'] = 7200;
+					$config['csrf_regenerate'] = TRUE;
+					$config['csrf_exclude_uris'] = array();
+					
+				</pre>
+				
+				WITH
+				
+				<pre>
+					
+					$config['csrf_protection'] = TRUE;
+					$config['csrf_token_name'] = '_csrfToken';
+					$config['csrf_cookie_name'] = '_csrfCookieName';
+					$config['csrf_expire'] = 7200;
+					$config['csrf_regenerate'] = TRUE;
+					$config['csrf_exclude_uris'] = array();
+					
+				</pre>
+			</li>
+		</ol>
+	  </div>
+  </body>
+</html>
