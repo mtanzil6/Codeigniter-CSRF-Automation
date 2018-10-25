@@ -4,8 +4,12 @@ $(function(){
 	var $csrfTokenName = '_csrfToken';
 	
 	// add csrf token to each ajax request
-	$.ajaxPrefilter(function(options, originalOptions, jqXHR) {
-		if (originalOptions.type !== 'POST' || options.type !== 'POST') 
+	$.ajaxPrefilter(function(options, originalOptions, jqXHR) 
+	{
+		var formMethodType = originalOptions.type+"";
+		var formMethodType2 = options.type+"";
+		
+		if (formMethodType.toLowerCase() !== 'post' || formMethodType2.toLowerCase() !== 'post') 
 		{
 	        return;
 	    }
