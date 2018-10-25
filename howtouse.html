@@ -114,8 +114,7 @@
 					$config['csrf_expire'] = 7200;
 					$config['csrf_regenerate'] = TRUE;
 					$config['csrf_exclude_uris'] = array(
-						'api/user/[a-z]+',
-						'api/codedecode/[a-z]+', 
+						'api/[/A-Za-z0-9][/A-Za-z0-9_-]+', 
 						'acp/CKUpload'
 					);
 					
