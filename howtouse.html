@@ -115,7 +115,9 @@
 					$config['csrf_regenerate'] = TRUE;
 					$config['csrf_exclude_uris'] = array(
 						'api/[/A-Za-z0-9_=-]+', 
-						'acp/CKUpload'
+						'acp/CKUpload',
+						'acp\/[/A-Za-z]+\/uploadImages',
+						'acp\/[/A-Za-z]+\/+upload[A-Za-z]+Images'
 					);
 					
 				</pre>
